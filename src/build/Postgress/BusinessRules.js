@@ -12,41 +12,42 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BusinessRules = void 0;
+exports.RegrasDeNegocio = void 0;
 const ConnectionToPg_1 = __importDefault(require("./ConnectionToPg"));
-class BusinessRules {
+class RegrasDeNegocio {
     constructor() {
         this.dbConnection = ConnectionToPg_1.default.getInstance();
     }
-    initialize() {
+    inicializar() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.dbConnection.connect();
         });
     }
-    queryTable(tableName, schema) {
+    desconectar() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.dbConnection.disconnect();
+        });
+    }
+    /* Esse método lista todos os itens de uma tabela, dado o schema e a tabela */
+    queryTable(nome_tabela, schema) {
         return __awaiter(this, void 0, void 0, function* () {
             const client = this.dbConnection.getClient();
             try {
-                // Iniciar uma transação
-                yield client.query('BEGIN');
                 // Definir o search_path
                 yield client.query(`SET search_path TO ${schema}`);
                 // Executar a consulta
-                const res = yield client.query(`SELECT * FROM ${tableName}`);
-                // Comitar a transação
-                yield client.query('COMMIT');
+                const res = yield client.query(`SELECT * FROM ${nome_tabela}`);
                 console.log(res.rows);
                 return res.rows;
             }
             catch (err) {
-                // Em caso de erro, fazer rollback
-                yield client.query('ROLLBACK');
-                console.error(`Error querying table ${tableName}`, err.stack);
+                console.error(`Error de query na tabela ${nome_tabela}`, err.stack);
                 throw err;
             }
         });
     }
-    insertPessoa(pessoa, schema) {
+    /* Esse método insere uma pessoa na tabela 'pessoas' */
+    inserirPessoa(pessoa, schema) {
         return __awaiter(this, void 0, void 0, function* () {
             const client = this.dbConnection.getClient();
             try {
@@ -71,4 +72,4 @@ class BusinessRules {
         });
     }
 }
-exports.BusinessRules = BusinessRules;
+exports.RegrasDeNegocio = RegrasDeNegocio;

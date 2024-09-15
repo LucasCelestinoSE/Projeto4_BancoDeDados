@@ -16,7 +16,7 @@ const BusinessRules_1 = require("./Postgress/BusinessRules");
 const ConnectionToPg_1 = __importDefault(require("./Postgress/ConnectionToPg"));
 function app() {
     return __awaiter(this, void 0, void 0, function* () {
-        const businessRules = new BusinessRules_1.BusinessRules();
+        const regrasDeNegocio = new BusinessRules_1.RegrasDeNegocio();
         const schema = 'mydb';
         const pessoa = {
             idpessoas: 12,
@@ -26,10 +26,10 @@ function app() {
         };
         try {
             // Inicializar conexão
-            yield businessRules.initialize();
-            yield businessRules.insertPessoa(pessoa, schema);
+            yield regrasDeNegocio.inicializar();
+            yield regrasDeNegocio.inserirPessoa(pessoa, schema);
             // Consultar dados da tabela
-            const tableData = yield businessRules.queryTable('pessoas', schema);
+            const tableData = yield regrasDeNegocio.queryTable('pessoas', schema);
         }
         catch (err) {
             console.error('Erro durante a inserção e consulta:', err);
