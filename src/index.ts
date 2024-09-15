@@ -1,4 +1,4 @@
-import { RegrasDeNegocio } from './Postgress/BusinessRules';
+import { RegrasDeNegocio } from './Postgress/RegrasDeNegocio';
 import ConnectionToPg from './Postgress/ConnectionToPg';
 
 async function app() {
