@@ -20,14 +20,13 @@ export class RegrasDeNegocio {
         await this.dbConnection.disconnect();
     }
     /* Esse método lista todos os itens de uma tabela, dado o schema e a tabela */
-    async queryTable(nome_tabela: string, schema: string): Promise<any[]> {
+    async getTable(nome_tabela: string, schema: string): Promise<any[]> {
         const client = this.dbConnection.getClient();
         try {
             
     
             // Definir o search_path
             await client.query(`SET search_path TO ${schema}`);
-            
             // Executar a consulta
             const res = await client.query(`SELECT * FROM ${nome_tabela}`);
     
@@ -49,7 +48,7 @@ export class RegrasDeNegocio {
                return console.log('Pessoa já existe');
             }
 
-            // Consulta usando os valores da interface
+            
             await client.query(`
                 INSERT INTO ${schema}.pessoas (idpessoas, cpf, numero_celular, email)
                 VALUES ($1, $2, $3, $4)

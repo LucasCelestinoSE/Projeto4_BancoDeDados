@@ -1,12 +1,11 @@
 import { RegrasDeNegocio } from './Postgress/RegrasDeNegocio';
 import ConnectionToPg from './Postgress/ConnectionToPg';
-
 async function app() {
     const regrasDeNegocio = new RegrasDeNegocio();
     const schema = 'mydb';
     const pessoa = {
         idpessoas: 12,
-        cpf: '1234352343',
+        cpf: '01528981600',
         numero_celular: '1234567890',
         email: 'example@example.com'
     };
@@ -17,7 +16,7 @@ async function app() {
         await regrasDeNegocio.inserirPessoa(pessoa, schema);
 
         // Consultar dados da tabela
-        const tableData = await regrasDeNegocio.queryTable('pessoas', schema);
+        const tableData = await regrasDeNegocio.getTable('pessoas', schema);
     } catch (err) {
         console.error('Erro durante a inserção e consulta:', err);
     } finally {
