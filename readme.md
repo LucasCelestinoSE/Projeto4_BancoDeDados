@@ -19,8 +19,8 @@ Se você ainda não tem o Node.js instalado, siga as instruções no site oficia
 Clone este repositório para sua máquina local usando o comando:
 
 ```sh
-git clone <URL_DO_REPOSITORIO>
-cd <NOME_DO_REPOSITORIO>
+git clone https://github.com/LucasCelestinoSE/Projeto4_BancoDeDados.git
+cd Projeto4_BancoDeDados
 npm install
 ```
 
